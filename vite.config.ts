@@ -26,5 +26,8 @@ export default defineConfig({
     watch: {
       usePolling: true
     }
+  },
+  optimizeDeps: {
+    exclude: ['i18next-fs-backend'],
   }
 });

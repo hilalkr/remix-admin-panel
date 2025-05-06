@@ -2,28 +2,16 @@ import { useTranslation } from "react-i18next";
 import { Plus, } from "lucide-react";
 
 import { Button } from "~/components/ui/button";
-
-
 import styles from "~/styles/users.module.scss";
 import { getUsers, User} from "~/services/users.server";
-import { DataTable } from "~/components/data-table/data-table";
 import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { type ColumnDef } from "@tanstack/react-table";
-import { columns } from "~/components/data-table/columns";
-
-
-
-
-
-  
+import UsersTable from "~/components/users/UsersTable";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const users = await getUsers();
   return json({ users });
 }
-
-
 
 export default function UsersPage() {
   const { t, i18n } = useTranslation('common');
@@ -39,7 +27,7 @@ export default function UsersPage() {
           {t("users.addUser")}
         </Button>
       </div>
-      <DataTable columns={columns} data={users} />
+      <UsersTable users={users} />
     </div>
   );
 } 
