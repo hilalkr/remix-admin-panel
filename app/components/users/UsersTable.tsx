@@ -24,7 +24,7 @@ export default function UsersTable({ users }: { users: User[] }) {
   const columns = useMemo(() => {
     return [
       ...getColumns({
-        onEdit: (id) => navigate(`/dashboard/users/edit/${id}`),
+        onEdit: (id) => navigate(`/dashboard/user-edit/${id}`),
         onDeleteConfirm: (id) => {
           const user = users.find((u) => u.id === id)
           if (user) setSelectedUser(user)
@@ -46,7 +46,7 @@ export default function UsersTable({ users }: { users: User[] }) {
                 <DropdownMenuItem onClick={() => navigator.clipboard.writeText(user.id)}>
                   Kullanıcı ID kopyala
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate(`/dashboard/users/edit/${user.id}`)}>
+                <DropdownMenuItem onClick={() => navigate(`/dashboard/user-edit/${user.id}`)}>
                   <Pencil className="mr-2 h-4 w-4" /> Kullanıcıyı düzenle
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setSelectedUser(user)} className="text-destructive">
