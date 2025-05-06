@@ -11,31 +11,71 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
+import { createInstance } from "i18next";
+import type { i18n } from "i18next";
+import { I18nextProvider, initReactI18next } from "react-i18next";
+import Backend from "i18next-fs-backend";
+import { resolve } from "node:path";
+import i18nextServer from "./i18n.server";
 
 const ABORT_DELAY = 5_000;
 
-export default function handleRequest(
+export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
-  // This is ignored so we can keep it in the template for visibility.  Feel
-  // free to delete this parameter in your app if you're not using it!
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadContext: AppLoadContext
 ) {
+  // Get user's language preference from the request
+  let locale = "en"; // Default locale
+  try {
+    locale = await i18nextServer.getLocale(request);
+  } catch (error) {
+    console.error("Error getting locale:", error);
+    // Continue with default locale
+  }
+
+  // Create a new i18next instance for this request
+  const instance = createInstance();
+  
+  // Initialize i18next for server-side rendering with support for all namespaces
+  try {
+    await instance
+      .use(initReactI18next)
+      .use(Backend)
+      .init({
+        fallbackLng: "en",
+        supportedLngs: ["en", "tr"],
+        ns: ["common"], // Add any additional namespaces here if needed
+        defaultNS: "common",
+        lng: locale,
+        backend: {
+          loadPath: resolve("./public/locales/{{lng}}/{{ns}}.json"),
+        },
+        react: {
+          useSuspense: false,
+        },
+      });
+  } catch (error) {
+    console.error("Error initializing i18next:", error);
+    // Continue with default i18n instance
+  }
+
   return isbot(request.headers.get("user-agent") || "")
     ? handleBotRequest(
         request,
         responseStatusCode,
         responseHeaders,
-        remixContext
+        remixContext,
+        instance
       )
     : handleBrowserRequest(
         request,
         responseStatusCode,
         responseHeaders,
-        remixContext
+        remixContext,
+        instance
       );
 }
 
@@ -43,16 +83,19 @@ function handleBotRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
+  instance: i18n
 ) {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
+      <I18nextProvider i18n={instance}>
       <RemixServer
         context={remixContext}
         url={request.url}
         abortDelay={ABORT_DELAY}
-      />,
+        />
+      </I18nextProvider>,
       {
         onAllReady() {
           shellRendered = true;
@@ -93,16 +136,19 @@ function handleBrowserRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
+  instance: i18n
 ) {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
+      <I18nextProvider i18n={instance}>
       <RemixServer
         context={remixContext}
         url={request.url}
         abortDelay={ABORT_DELAY}
-      />,
+        />
+      </I18nextProvider>,
       {
         onShellReady() {
           shellRendered = true;

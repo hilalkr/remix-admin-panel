@@ -1,0 +1,121 @@
+.tableContainer {
+  @apply w-full overflow-auto rounded-md border border-slate-200 dark:border-slate-700;
+}
+
+.table {
+  @apply w-full text-sm;
+}
+
+.tableHeader {
+  @apply bg-slate-100 dark:bg-slate-800;
+}
+
+.tableHeaderCell {
+  @apply h-10 px-4 text-left align-middle font-medium text-slate-500 dark:text-slate-400;
+}
+
+.tableRow {
+  @apply border-b border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors;
+}
+
+.tableCell {
+  @apply px-4 py-2 align-middle;
+}
+
+.tableCellActions {
+  @apply flex items-center justify-end gap-2;
+}
+
+.badge {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+}
+
+.badgeSuccess {
+  @apply bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100;
+}
+
+.badgeError {
+  @apply bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100;
+}
+
+.paginationContainer {
+  @apply mt-4 flex flex-col space-y-3;
+}
+
+.paginationInfo {
+  @apply flex flex-col sm:flex-row items-center justify-between gap-3;
+}
+
+.paginationText {
+  @apply text-sm text-slate-500 dark:text-slate-400;
+}
+
+.paginationControls {
+  @apply flex items-center gap-2;
+}
+
+.paginationSelect {
+  @apply h-9 rounded-md border border-slate-200 bg-white px-3 py-1 text-sm 
+  dark:border-slate-800 dark:bg-slate-950 focus-visible:outline-none 
+  focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-500 
+  dark:focus-visible:ring-slate-400;
+}
+
+.paginationButtons {
+  @apply flex items-center justify-center gap-1 mt-2;
+}
+
+.paginationButton {
+  @apply inline-flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium
+  ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2
+  focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50
+  dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300;
+}
+
+.paginationButtonActive {
+  @apply bg-slate-900 text-slate-50 hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90;
+}
+
+.paginationButtonInactive {
+  @apply border border-slate-200 hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-50;
+}
+
+.searchContainer {
+  @apply mb-4 flex flex-col space-y-2 md:flex-row md:items-end md:justify-between md:space-y-0;
+}
+
+.searchInput {
+  @apply w-full md:w-96;
+}
+
+.searchInputContainer {
+  @apply relative w-full md:w-1/3;
+}
+
+.searchInputIcon {
+  @apply absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400;
+}
+
+.filterContainer {
+  @apply flex flex-col md:flex-row gap-4 w-full md:w-2/3;
+}
+
+.filterGroup {
+  @apply flex-1;
+}
+
+.formField {
+  @apply space-y-1;
+}
+
+.formLabel {
+  @apply block text-sm font-medium text-gray-700 dark:text-gray-300;
+}
+
+.formSelect {
+  @apply block w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm
+  ring-offset-white focus-visible:outline-none focus-visible:ring-2
+  focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed
+  disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950
+  dark:focus-visible:ring-slate-300;
+} 

@@ -1,0 +1,63 @@
+.authContainer {
+  @apply flex min-h-screen flex-col justify-center py-12 sm:px-6 lg:px-8;
+}
+
+.authCard {
+  @apply mx-auto w-full max-w-md;
+}
+
+.authHeader {
+  @apply mb-8 text-center;
+}
+
+.authLogo {
+  @apply mx-auto h-12 w-auto;
+}
+
+.authTitle {
+  @apply mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white;
+}
+
+.formContainer {
+  @apply mt-8;
+}
+
+.formPanel {
+  @apply px-4 py-8 shadow sm:rounded-lg sm:px-10;
+}
+
+.formGroup {
+  @apply space-y-6;
+}
+
+.formField {
+  @apply space-y-1;
+}
+
+.formLabel {
+  @apply block text-sm font-medium text-gray-700 dark:text-gray-300;
+}
+
+.formActions {
+  @apply flex items-center justify-between;
+}
+
+.formLinks {
+  @apply flex items-center space-x-2 text-sm;
+}
+
+.formLink {
+  @apply font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300;
+}
+
+.formRemember {
+  @apply flex items-center space-x-2;
+}
+
+.formError {
+  @apply mt-2 text-sm text-red-600 dark:text-red-400;
+}
+
+.formSubmit {
+  @apply mt-6 w-full;
+} 
