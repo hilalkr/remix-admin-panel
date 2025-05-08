@@ -48,34 +48,124 @@ alwaysApply: false
 ## Routing Conventions
 
 ### Flat Routes
-- Use Remix Flat Routes convention to reduce folder depth and improve clarity:
+- Use Remix Flat Routes convention with `remix-flat-routes` to reduce folder depth and improve clarity:
   ```
   routes/
-    projects_.$projectId.tsx  // Instead of routes/projects/$projectId/index.tsx
+    dashboard+/
+      users+/
+        _index.tsx         // /dashboard/users
+        new.tsx           // /dashboard/users/new
+      user-edit.$userId.tsx // /dashboard/user-edit/123
   ```
+- The + notation indicates route grouping without additional URL segments
 
-## Hooks and Effects
+## Component Development
 
-### Translation Loading
-- Create custom utility hooks for reusability
-- Use appropriate effect hooks for translation loading:
+### UI Components
+- Follow shadcn/ui patterns for new components
+- Maintain the "new-york" style from components.json configuration
+- Create UI components in the `app/components/ui/` directory
+- Extend existing components rather than creating new ones when possible
 
+## Form Handling and Validation
+
+### Zod Schema Validation
+- Define schemas at the top of your route files:
   ```tsx
-  useLayoutEffect(() => {
-    loadTranslations(locale);
-  }, [locale]);
+  // Define form schema with Zod
+  const userSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invalid email address"),
+    role: z.enum(["admin", "user", "editor"] as const),
+    status: z.enum(["active", "inactive", "pending"] as const),
+  });
   ```
 
-- ⚠️ **Important**: Only use `useLayoutEffect` if the translation affects layout directly — otherwise, `useEffect` is preferred to avoid blocking rendering.
+- Use `safeParse` for validation in action functions:
+  ```tsx
+  const result = userSchema.safeParse(formValues);
+  if (!result.success) {
+    return json({ errors: result.error.format() }, { status: 400 });
+  }
+  ```
+
+## Internationalization Practices
+
+### Translation Keys
+- Organize translation keys hierarchically:
+  ```json
+  {
+    "users": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "roles": {
+        "admin": "Administrator",
+        "user": "User",
+        "editor": "Editor"
+      }
+    }
+  }
+  ```
+
+### Translation Usage
+- Use the `useTranslation` hook consistently:
+  ```tsx
+  const { t } = useTranslation("common");
+  
+  // Later in JSX
+  <Label htmlFor="name">{t("users.name")}</Label>
+  ```
 
 ## State Management
 
-### Preferred Technologies
-- **Zustand**: Use as primary state manager for local and global state
-  - Lightweight and boilerplate-free
+### Form State
+- Use React's `useState` for form state management:
+  ```tsx
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    role: "user" as Role,
+    status: "active" as Status,
+  });
   
-- **Axios**: Implement for API calls
-  - Consider integrating with Zustand stores for state management
-  
-- **Zod**: 
-  - For runtime schema validation and ensuring type safety in TypeScript.
+  const handleChange = (field: keyof typeof formData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+  ```
+
+### Server Integration
+- Use Remix's `loader` and `action` functions for data operations
+- Create server-side services in `app/services` directory
+- Follow the naming convention of `*.server.ts` for server-only code
+
+## Data Table Patterns
+
+### TanStack Table
+- Use TanStack Table for complex data tables with sorting, filtering, and pagination
+- Implement reusable table components in the `app/components/data-table/` directory
+
+## Error Handling
+
+### Form Validation Errors
+- Display field-specific errors below form elements:
+  ```tsx
+  {actionData?.errors && actionData.errors.name && (
+    <p className={styles.error}>{actionData.errors.name._errors[0]}</p>
+  )}
+  ```
+
+### Type Definitions
+- Define proper types for action data:
+  ```tsx
+  type ActionData =
+    | { error: string; errors?: never }
+    | { errors: Record<string, { _errors: string[] }>; error?: never };
+  ```
+
+## Dashboard and Data Visualization
+
+### Charts
+- Use Recharts for data visualization
+- Create reusable chart components
+- Follow consistent styling patterns for charts
