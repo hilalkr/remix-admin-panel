@@ -60,7 +60,20 @@
     },
     "userDetails": "User Details",
     "personalInfo": "Personal Information",
-    "accountSettings": "Account Settings"
+    "accountSettings": "Account Settings",
+    "newUser": "New User",
+    "selectRole": "Select a role",
+    "selectStatus": "Select a status",
+    "roles": {
+      "admin": "Administrator",
+      "user": "User",
+      "editor": "Editor"
+    },
+    "statuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending"
+    }
   },
   "common": {
     "cancel": "Cancel",
@@ -75,6 +88,7 @@
     "logout": "Logout",
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "create": "Create"
   }
-} 
+}

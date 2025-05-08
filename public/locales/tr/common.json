@@ -60,7 +60,20 @@
     },
     "userDetails": "Kullanıcı Detayları",
     "personalInfo": "Kişisel Bilgiler",
-    "accountSettings": "Hesap Ayarları"
+    "accountSettings": "Hesap Ayarları",
+    "newUser": "Yeni Kullanıcı",
+    "selectRole": "Bir rol seçin",
+    "selectStatus": "Bir durum seçin",
+    "roles": {
+      "admin": "Yönetici",
+      "user": "Kullanıcı",
+      "editor": "Editör"
+    },
+    "statuses": {
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "pending": "Beklemede"
+    }
   },
   "common": {
     "cancel": "İptal",
@@ -75,6 +88,7 @@
     "logout": "Çıkış Yap",
     "light": "Açık",
     "dark": "Koyu",
-    "system": "Sistem"
+    "system": "Sistem",
+    "create": "Oluştur"
   }
-} 
+}

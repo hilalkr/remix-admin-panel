@@ -1,0 +1,81 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Project Code Style and Organization Guidelines
+
+## Component Structure
+- **Co-locate CSS with Components**: Place each component's `.module.css` file next to its respective component for improved discoverability.
+  ```
+  components/
+    Button/
+      Button.tsx
+      Button.module.css   // this is only example, you should make it to new added components
+  ```
+
+## CSS Best Practices
+
+### Multi-line @apply Rules
+- Break `@apply` rules into multiple lines for better readability and version control:
+  ```css
+  .btn {
+    @apply
+      px-4
+      py-2
+      text-white
+      bg-blue-500
+      rounded;
+  }
+  ```
+
+### No Inline Tailwind Classes
+- **Problem**: Long inline Tailwind class strings make JSX hard to read:
+  ```tsx
+  <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between">
+  ```
+
+- **Solution**: Use CSS Modules for cleaner JSX and better reuse:
+  ```tsx
+  <div className={styles.wrapper} />
+  
+  /* In wrapper.module.css */
+  .wrapper {
+    @apply mb-6 flex flex-col md:flex-row md:items-center md:justify-between;
+  }
+  ```
+
+## Routing Conventions
+
+### Flat Routes
+- Use Remix Flat Routes convention to reduce folder depth and improve clarity:
+  ```
+  routes/
+    projects_.$projectId.tsx  // Instead of routes/projects/$projectId/index.tsx
+  ```
+
+## Hooks and Effects
+
+### Translation Loading
+- Create custom utility hooks for reusability
+- Use appropriate effect hooks for translation loading:
+
+  ```tsx
+  useLayoutEffect(() => {
+    loadTranslations(locale);
+  }, [locale]);
+  ```
+
+- ⚠️ **Important**: Only use `useLayoutEffect` if the translation affects layout directly — otherwise, `useEffect` is preferred to avoid blocking rendering.
+
+## State Management
+
+### Preferred Technologies
+- **Zustand**: Use as primary state manager for local and global state
+  - Lightweight and boilerplate-free
+  
+- **Axios**: Implement for API calls
+  - Consider integrating with Zustand stores for state management
+  
+- **Zod**: 
+  - For runtime schema validation and ensuring type safety in TypeScript.
