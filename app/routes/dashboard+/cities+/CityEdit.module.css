@@ -1,0 +1,28 @@
+.title {
+  @apply text-2xl
+    font-bold
+    mb-6;
+}
+
+.form {
+  @apply max-w-2xl
+    space-y-6;
+}
+
+.formGroup {
+  @apply space-y-2;
+}
+
+.error {
+  @apply text-sm
+    text-red-500
+    mt-1;
+}
+
+.actions {
+  @apply flex
+    items-center
+    justify-end
+    space-x-4
+    mt-8;
+}

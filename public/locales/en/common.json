@@ -11,6 +11,8 @@
     "welcome": "Welcome to Admin Panel",
     "overview": "Overview",
     "users": "Users",
+    "cities": "Cities",
+    "countries": "Countries",
     "reports": "Reports",
     "settings": "Settings",
     "totalUsers": "Total Users",
@@ -27,6 +29,7 @@
   },
   "users": {
     "title": "Users Management",
+    "description": "Manage user accounts, roles and permissions",
     "addUser": "Add User",
     "editUser": "Edit User",
     "deleteUser": "Delete User",
@@ -75,6 +78,112 @@
       "pending": "Pending"
     }
   },
+  "cities": {
+    "title": "Cities Management",
+    "description": "Manage cities information and status",
+    "addCity": "Add City",
+    "editCity": "Edit City",
+    "deleteCity": "Delete City",
+    "allCities": "All Cities",
+    "name": "Name",
+    "country": "Country",
+    "population": "Population",
+    "status": "Status",
+    "dateAdded": "Date Added",
+    "actions": "Actions",
+    "confirmDelete": "Are you sure you want to delete this city?",
+    "cityAdded": "City added successfully",
+    "cityUpdated": "City updated successfully",
+    "cityDeleted": "City deleted successfully",
+    "filter": "Filter",
+    "filterByCountry": "Filter by Country",
+    "filterByStatus": "Filter by Status",
+    "selectStatus": "Select a status",
+    "statuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending"
+    },
+    "noResults": "No cities found",
+    "details": "City Details"
+  },
+  "countries": {
+    "title": "Countries Management",
+    "description": "Manage country information and status",
+    "addCountry": "Add Country",
+    "editCountry": "Edit Country",
+    "deleteCountry": "Delete Country",
+    "allCountries": "All Countries",
+    "name": "Name",
+    "code": "Code",
+    "capital": "Capital",
+    "region": "Region",
+    "population": "Population",
+    "status": "Status",
+    "dateAdded": "Date Added",
+    "actions": "Actions",
+    "confirmDelete": "Are you sure you want to delete this country?",
+    "countryAdded": "Country added successfully",
+    "countryUpdated": "Country updated successfully",
+    "countryDeleted": "Country deleted successfully",
+    "filter": "Filter",
+    "filterByRegion": "Filter by Region",
+    "filterByStatus": "Filter by Status",
+    "selectStatus": "Select a status",
+    "statuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending"
+    },
+    "noResults": "No countries found",
+    "details": "Country Details"
+  },
+  "settings": {
+    "title": "System Settings",
+    "description": "Configure application settings and preferences",
+    "appearance": {
+      "title": "Appearance",
+      "description": "Customize the look and feel of the application",
+      "theme": "Theme",
+      "themeDescription": "Choose between light, dark or system theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Set your preferred language for the interface",
+      "selectLanguage": "Select language",
+      "english": "English",
+      "turkish": "Turkish"
+    },
+    "account": {
+      "title": "Account Settings",
+      "description": "Update your account information and preferences",
+      "name": "Full Name",
+      "email": "Email Address",
+      "updateProfile": "Update Profile"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Configure how you receive notifications",
+      "emailNotifications": "Email Notifications",
+      "pushNotifications": "Push Notifications",
+      "smsNotifications": "SMS Notifications"
+    },
+    "security": {
+      "title": "Security",
+      "description": "Manage security settings for your account",
+      "changePassword": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "twoFactorAuth": "Two-factor Authentication",
+      "enableTwoFactor": "Enable two-factor authentication",
+      "updatePassword": "Update Password"
+    },
+    "settingsSaved": "Settings saved successfully"
+  },
   "common": {
     "cancel": "Cancel",
     "save": "Save",
@@ -89,6 +198,7 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System",
-    "create": "Create"
+    "create": "Create",
+    "actions": "Actions"
   }
 }

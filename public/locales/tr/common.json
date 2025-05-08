@@ -11,6 +11,8 @@
     "welcome": "Admin Paneline Hoş Geldiniz",
     "overview": "Genel Bakış",
     "users": "Kullanıcılar",
+    "cities": "Şehirler",
+    "countries": "Ülkeler",
     "reports": "Raporlar",
     "settings": "Ayarlar",
     "totalUsers": "Toplam Kullanıcı",
@@ -27,6 +29,7 @@
   },
   "users": {
     "title": "Kullanıcı Yönetimi",
+    "description": "Kullanıcı hesaplarını, rollerini ve izinlerini yönetin",
     "addUser": "Kullanıcı Ekle",
     "editUser": "Kullanıcı Düzenle",
     "deleteUser": "Kullanıcı Sil",
@@ -75,6 +78,112 @@
       "pending": "Beklemede"
     }
   },
+  "cities": {
+    "title": "Şehir Yönetimi",
+    "description": "Şehir bilgilerini ve durumlarını yönetin",
+    "addCity": "Şehir Ekle",
+    "editCity": "Şehir Düzenle",
+    "deleteCity": "Şehir Sil",
+    "allCities": "Tüm Şehirler",
+    "name": "Şehir Adı",
+    "country": "Ülke",
+    "population": "Nüfus",
+    "status": "Durum",
+    "dateAdded": "Eklenme Tarihi",
+    "actions": "İşlemler",
+    "confirmDelete": "Bu şehri silmek istediğinizden emin misiniz?",
+    "cityAdded": "Şehir başarıyla eklendi",
+    "cityUpdated": "Şehir başarıyla güncellendi",
+    "cityDeleted": "Şehir başarıyla silindi",
+    "filter": "Filtrele",
+    "filterByCountry": "Ülkeye Göre Filtrele",
+    "filterByStatus": "Duruma Göre Filtrele",
+    "selectStatus": "Bir durum seçin",
+    "statuses": {
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "pending": "Beklemede"
+    },
+    "noResults": "Şehir bulunamadı",
+    "details": "Şehir Detayları"
+  },
+  "countries": {
+    "title": "Ülke Yönetimi",
+    "description": "Ülke bilgilerini ve durumlarını yönetin",
+    "addCountry": "Ülke Ekle",
+    "editCountry": "Ülke Düzenle",
+    "deleteCountry": "Ülke Sil",
+    "allCountries": "Tüm Ülkeler",
+    "name": "Ülke Adı",
+    "code": "Kod",
+    "capital": "Başkent",
+    "region": "Bölge",
+    "population": "Nüfus",
+    "status": "Durum",
+    "dateAdded": "Eklenme Tarihi",
+    "actions": "İşlemler",
+    "confirmDelete": "Bu ülkeyi silmek istediğinizden emin misiniz?",
+    "countryAdded": "Ülke başarıyla eklendi",
+    "countryUpdated": "Ülke başarıyla güncellendi",
+    "countryDeleted": "Ülke başarıyla silindi",
+    "filter": "Filtrele",
+    "filterByRegion": "Bölgeye Göre Filtrele",
+    "filterByStatus": "Duruma Göre Filtrele",
+    "selectStatus": "Bir durum seçin",
+    "statuses": {
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "pending": "Beklemede"
+    },
+    "noResults": "Ülke bulunamadı",
+    "details": "Ülke Detayları"
+  },
+  "settings": {
+    "title": "Sistem Ayarları",
+    "description": "Uygulama ayarlarını ve tercihlerini yapılandırın",
+    "appearance": {
+      "title": "Görünüm",
+      "description": "Uygulamanın görünümünü özelleştirin",
+      "theme": "Tema",
+      "themeDescription": "Açık, koyu veya sistem teması arasında seçim yapın",
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Sistem"
+    },
+    "language": {
+      "title": "Dil",
+      "description": "Arayüz için tercih ettiğiniz dili ayarlayın",
+      "selectLanguage": "Dil seçin",
+      "english": "İngilizce",
+      "turkish": "Türkçe"
+    },
+    "account": {
+      "title": "Hesap Ayarları",
+      "description": "Hesap bilgilerinizi ve tercihlerinizi güncelleyin",
+      "name": "Tam Ad",
+      "email": "E-posta Adresi",
+      "updateProfile": "Profili Güncelle"
+    },
+    "notifications": {
+      "title": "Bildirimler",
+      "description": "Bildirimleri nasıl alacağınızı yapılandırın",
+      "emailNotifications": "E-posta Bildirimleri",
+      "pushNotifications": "Anlık Bildirimler",
+      "smsNotifications": "SMS Bildirimleri"
+    },
+    "security": {
+      "title": "Güvenlik",
+      "description": "Hesabınız için güvenlik ayarlarını yönetin",
+      "changePassword": "Şifre Değiştir",
+      "currentPassword": "Mevcut Şifre",
+      "newPassword": "Yeni Şifre",
+      "confirmPassword": "Yeni Şifre Onayı",
+      "twoFactorAuth": "İki Faktörlü Kimlik Doğrulama",
+      "enableTwoFactor": "İki faktörlü kimlik doğrulamayı etkinleştir",
+      "updatePassword": "Şifreyi Güncelle"
+    },
+    "settingsSaved": "Ayarlar başarıyla kaydedildi"
+  },
   "common": {
     "cancel": "İptal",
     "save": "Kaydet",
@@ -89,6 +198,7 @@
     "light": "Açık",
     "dark": "Koyu",
     "system": "Sistem",
-    "create": "Oluştur"
+    "create": "Oluştur",
+    "actions": "İşlemler"
   }
 }

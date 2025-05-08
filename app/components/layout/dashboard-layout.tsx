@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate, Form } from "@remix-run/react";
+import { Link, useLocation, Form } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import {
   BarChart3,
@@ -12,11 +12,17 @@ import {
   X,
   Sun,
   Moon,
-  Globe
+  Globe,
+  Building,
+  Flag,
 } from "lucide-react";
 import styles from "~/styles/layout.module.scss";
 import { cn } from "~/lib/utils";
-import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "~/components/ui/popover";
 
 interface DashboardLayoutProps {
   user: {
@@ -27,40 +33,44 @@ interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
-export default function DashboardLayout({ user, children }: DashboardLayoutProps) {
-  const { t, i18n } = useTranslation('common');
+export default function DashboardLayout({
+  user,
+  children,
+}: DashboardLayoutProps) {
+  const { t, i18n } = useTranslation("common");
   const location = useLocation();
-  const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   // Get current theme and sidebar state from local storage on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' || 'light';
-    const savedSidebarState = localStorage.getItem('sidebarCollapsed') === 'true';
-    
+    const savedTheme =
+      (localStorage.getItem("theme") as "light" | "dark") || "light";
+    const savedSidebarState =
+      localStorage.getItem("sidebarCollapsed") === "true";
+
     setTheme(savedTheme);
     setSidebarCollapsed(savedSidebarState);
-    
+
     // Apply theme on initial load
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
   // Function to toggle theme
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
+    localStorage.setItem("theme", newTheme);
+
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   };
 
@@ -68,14 +78,14 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
   const toggleSidebar = () => {
     const newState = !sidebarCollapsed;
     setSidebarCollapsed(newState);
-    localStorage.setItem('sidebarCollapsed', String(newState));
+    localStorage.setItem("sidebarCollapsed", String(newState));
   };
 
   // Function to expand sidebar when logo is clicked
   const expandSidebar = () => {
     if (sidebarCollapsed) {
       setSidebarCollapsed(false);
-      localStorage.setItem('sidebarCollapsed', 'false');
+      localStorage.setItem("sidebarCollapsed", "false");
     }
   };
 
@@ -83,10 +93,9 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
     document.cookie = `i18next=${lang}; path=/`;
-    localStorage.setItem('language', lang);
+    localStorage.setItem("language", lang);
     window.location.reload(); // Zorunlu çünkü Remix loader yeniden çalışmalı
   };
-  
 
   const navigation = [
     {
@@ -100,6 +109,18 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
       href: "/dashboard/users",
       icon: Users,
       current: location.pathname.startsWith("/dashboard/users"),
+    },
+    {
+      name: t("dashboard.cities"),
+      href: "/dashboard/cities",
+      icon: Building,
+      current: location.pathname.startsWith("/dashboard/cities"),
+    },
+    {
+      name: t("dashboard.countries"),
+      href: "/dashboard/countries",
+      icon: Flag,
+      current: location.pathname.startsWith("/dashboard/countries"),
     },
     {
       name: t("dashboard.settings"),
@@ -120,10 +141,12 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
       >
         <div className={styles.sidebarHeader}>
           {/* Logo part - clicking expands the sidebar */}
-          <div 
-            className={styles.sidebarLogo} 
+          <button
+            className={styles.sidebarLogo}
             onClick={expandSidebar}
-            style={{ cursor: 'pointer' }}
+            onKeyDown={(e) => e.key === "Enter" && expandSidebar()}
+            aria-label="Expand sidebar"
+            type="button"
           >
             <img
               className={styles.logoImage}
@@ -133,14 +156,16 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
             {!sidebarCollapsed && (
               <span className={styles.logoText}>Admin Panel</span>
             )}
-          </div>
-          
+          </button>
+
           {/* Sidebar collapse/expand toggle */}
           <button
             type="button"
             className={styles.sidebarToggle}
             onClick={toggleSidebar}
-            aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            aria-label={
+              sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
+            }
           >
             {sidebarCollapsed ? (
               <ChevronRight className="h-4 w-4" />
@@ -166,7 +191,7 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
           ))}
         </nav>
 
-        <div className={styles.sidebarFooter}>          
+        <div className={styles.sidebarFooter}>
           {/* Logout button */}
           <Form action="/logout" method="post">
             <button
@@ -182,9 +207,12 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
 
       {/* Mobile menu overlay */}
       {mobileMenuOpen && (
-        <div
+        <button
           className={styles.mobileOverlay}
           onClick={() => setMobileMenuOpen(false)}
+          onKeyDown={(e) => e.key === "Enter" && setMobileMenuOpen(false)}
+          aria-label="Close mobile menu"
+          type="button"
         />
       )}
 
@@ -232,50 +260,47 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
 
         <div className={styles.sidebarFooter}>
           {/* Theme toggle in mobile */}
-          <button 
+          <button
             className={cn(styles.sidebarLink, "w-full mb-2")}
             onClick={toggleTheme}
           >
-            {theme === 'dark' ? (
+            {theme === "dark" ? (
               <Sun className={styles.sidebarLinkIcon} />
             ) : (
               <Moon className={styles.sidebarLinkIcon} />
             )}
             <span>{t("dashboard.themeToggle")}</span>
           </button>
-          
+
           {/* Language toggle in mobile */}
           <div className={cn(styles.sidebarLink, "w-full mb-2")}>
             <Globe className={styles.sidebarLinkIcon} />
             <span>{t("dashboard.languageSelector")}</span>
-            
+
             <div className="ml-auto flex space-x-2">
               <button
                 className={cn(
                   "px-2 py-0.5 text-xs rounded",
-                  i18n.language === 'en' ? "bg-slate-700" : "hover:bg-slate-600"
+                  i18n.language === "en" ? "bg-slate-700" : "hover:bg-slate-600"
                 )}
-                onClick={() => changeLanguage('en')}
+                onClick={() => changeLanguage("en")}
               >
                 EN
               </button>
               <button
                 className={cn(
                   "px-2 py-0.5 text-xs rounded",
-                  i18n.language === 'tr' ? "bg-slate-700" : "hover:bg-slate-600"
+                  i18n.language === "tr" ? "bg-slate-700" : "hover:bg-slate-600"
                 )}
-                onClick={() => changeLanguage('tr')}
+                onClick={() => changeLanguage("tr")}
               >
                 TR
               </button>
             </div>
           </div>
-          
+
           <Form action="/logout" method="post">
-            <button
-              type="submit"
-              className={cn(styles.sidebarLink, "w-full")}
-            >
+            <button type="submit" className={cn(styles.sidebarLink, "w-full")}>
               <LogOut className={styles.sidebarLinkIcon} />
               <span>{t("common.logout")}</span>
             </button>
@@ -304,26 +329,28 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
             <button
               onClick={toggleTheme}
               className={styles.headerAction}
-              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-              title={t(theme === 'light' ? 'common.dark' : 'common.light')}
+              aria-label={`Switch to ${
+                theme === "light" ? "dark" : "light"
+              } mode`}
+              title={t(theme === "light" ? "common.dark" : "common.light")}
             >
-              {theme === 'light' ? (
+              {theme === "light" ? (
                 <Moon className="h-5 w-5" />
               ) : (
                 <Sun className="h-5 w-5" />
               )}
             </button>
-            
+
             {/* Language Switcher */}
             <Popover>
               <PopoverTrigger asChild>
-                <button 
+                <button
                   className={styles.headerAction}
                   title={t("dashboard.languageSelector")}
                 >
                   <Globe className="h-5 w-5" />
                   <span className="ml-1 font-medium text-sm hidden sm:inline-block">
-                    {i18n.language === 'en' ? 'EN' : 'TR'}
+                    {i18n.language === "en" ? "EN" : "TR"}
                   </span>
                 </button>
               </PopoverTrigger>
@@ -332,25 +359,29 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
                   <button
                     className={cn(
                       "flex w-full items-center px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md",
-                      i18n.language === 'en' ? "bg-slate-100 dark:bg-slate-800 font-medium" : ""
+                      i18n.language === "en"
+                        ? "bg-slate-100 dark:bg-slate-800 font-medium"
+                        : ""
                     )}
-                    onClick={() => changeLanguage('en')}
+                    onClick={() => changeLanguage("en")}
                   >
                     🇬🇧 English
                   </button>
                   <button
                     className={cn(
                       "flex w-full items-center px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md",
-                      i18n.language === 'tr' ? "bg-slate-100 dark:bg-slate-800 font-medium" : ""
+                      i18n.language === "tr"
+                        ? "bg-slate-100 dark:bg-slate-800 font-medium"
+                        : ""
                     )}
-                    onClick={() => changeLanguage('tr')}
+                    onClick={() => changeLanguage("tr")}
                   >
                     🇹🇷 Türkçe
                   </button>
                 </div>
               </PopoverContent>
             </Popover>
-            
+
             {/* User profile/account menu */}
             <div className={styles.userMenu}>
               <div className={styles.userButton}>
@@ -361,10 +392,8 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
           </div>
         </header>
 
-        <main className={styles.content}>
-          {children}
-        </main>
+        <main className={styles.content}>{children}</main>
       </div>
     </div>
   );
-} 
+}

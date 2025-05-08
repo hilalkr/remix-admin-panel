@@ -11,6 +11,7 @@ import { json } from "@remix-run/node";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import i18next from "./i18n.server";
+import { ToastProvider } from "~/components/ui/use-toast";
 
 import "./tailwind.css";
 
@@ -57,7 +58,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const { locale } = useLoaderData<{locale: string}>();
+  const { locale } = useLoaderData<{ locale: string }>();
   const { i18n } = useTranslation();
   const [isI18nInitialized, setIsI18nInitialized] = useState(false);
 
@@ -66,17 +67,17 @@ export default function App() {
     const initializeI18n = async () => {
       try {
         // Check for stored language preference
-        const storedLanguage = localStorage.getItem('language');
+        const storedLanguage = localStorage.getItem("language");
         const languageToUse = storedLanguage || locale;
-        
+
         // Change language if it's not already the current language
         if (i18n.language !== languageToUse) {
           await i18n.changeLanguage(languageToUse);
         }
-        
+
         // Save language preference
-        localStorage.setItem('language', i18n.language);
-        
+        localStorage.setItem("language", i18n.language);
+
         // Mark as initialized
         setIsI18nInitialized(true);
       } catch (error) {
@@ -84,9 +85,13 @@ export default function App() {
         setIsI18nInitialized(true); // Continue anyway
       }
     };
-    
+
     initializeI18n();
   }, [locale, i18n]);
 
-  return <Outlet />;
+  return (
+    <ToastProvider>
+      <Outlet />
+    </ToastProvider>
+  );
 }
